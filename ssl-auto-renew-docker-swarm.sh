@@ -3,7 +3,7 @@
 # version 1.1
 
 
-DOMAIN="devops-lab.click"
+DOMAIN="webserver.devops-lab.click"
 
 
 docker service ls --format {{.Name}} | grep nginx
@@ -16,6 +16,9 @@ export nginx_container=$(docker container ls --format {{.Names}} | grep nginx)
 echo $nginx_service,  $nginx_container
 
 docker service scale $nginx=0
+
+# Wait for 10 seconds
+sleep 10
 
 # Renew the certificate
 sudo certbot certonly --force-renewal --non-interactive --agree-tos --standalone -d $DOMAIN -v
